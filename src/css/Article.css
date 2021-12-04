@@ -1,0 +1,46 @@
+.layout {
+    position: sticky;
+    top: 5.0vw;
+    width: 40vw;
+    height: fit-content;
+    padding-bottom: 2em;
+    text-align: center;
+    background-color: white;
+    border-radius: 1em;
+    -webkit-box-shadow: 0em 0em 0.2em inset;
+    box-shadow: whitesmoke;
+}
+
+.article-news-site {
+    font-size: 1.5vw;
+    text-align: left;
+    padding: 1.5vw 1.5vw 0vw 1.5vw;
+}
+
+.article-title {
+    font-size: 2vw;
+    text-align: left;
+    padding: 1.5vw;
+    line-height: 100%;
+}
+
+.article-author {
+    font-size: 1vw;
+    text-align: left;
+    padding: 0.5vw 1.5vw 0vw 1.5vw;
+    color: gray;
+}
+
+.article-date {
+    font-size: 1vw;
+    text-align: left;
+    padding: 0.1vw 1.5vw 0vw 1.5vw;
+    color: gray;
+}
+
+.article-text {
+    font-size: 1vw;
+    text-align: left;
+    padding: 1vw 1.5vw 0vw 1.5vw;
+}
+

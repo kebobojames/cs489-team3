@@ -1,0 +1,68 @@
+.source {
+    height: fit-content;
+    border-radius: 1vw;
+    display: grid;
+    grid-template-columns: 12% 38% 38% 12%;
+    grid-template-rows: 1.5vw fit-content 1vw;
+    justify-content: center;
+    padding: 1vw;
+    margin: 0.5vw;
+    background-color: white;
+}
+
+.source:hover {
+    background-color: whitesmoke;
+}
+
+.score {
+    height: 3vw;
+    width: 3vw;
+    background-color: #c8c8c8;
+    border-radius: 100vw;
+    padding: 1vw;
+    margin-left: 0.5vw;
+    grid-row: 1/4;
+    grid-column: 1;
+}
+
+.news-site {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    justify-content: left;
+    text-align: left;
+    grid-row: 1;
+    grid-column: 2/4;
+    font-weight: bold;
+}
+
+.news-title {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    justify-content: left;
+    text-align: left;
+    grid-row: 2;
+    grid-column: 2/4;
+}
+
+.news-author {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    justify-content: space-between;
+    text-align: left;
+    grid-row: 3;
+    grid-column: 2;
+    color: gray;
+}
+
+.news-date {
+    grid-row: 3;
+    grid-column: 3;
+    color: gray;
+}
+
+.upvote {
+    justify-content: center;
+    background-color: none;
+    grid-row: 2/3;
+    grid-column: 4;
+}
