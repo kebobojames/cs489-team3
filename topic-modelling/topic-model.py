@@ -33,9 +33,9 @@ tf.disable_v2_behavior()
 
 def polarization_score(pred_list, cls):
   if cls == 0 or cls == 3:
-    return int(50 + 50 * pred_list[cls])
+    return int(50 + 50 * pred_list[cls] - 12.5 * (1 - pred_list[cls]))
   else:
-    return int(50 * pred_list[cls])
+    return int(50 * pred_list[cls] - 12.5 * (1 - pred_list[cls]))
 
 def make_pred(news_text, news_DNN_four, bert_topic, session, scaler, e_All_four):
   sim_matrix = session.run(embedded_text, feed_dict={text_input: [news_text]})
