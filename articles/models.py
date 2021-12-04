@@ -10,7 +10,7 @@ class Users(models.Model):
 class Topics(models.Model):
 	topic_name = models.CharField(max_length = 40)
 	date_created = models.DateField(auto_now_add = True)
-	topic_image = models.FileField(upload_to = 'images/%Y/%m/%d/')
+	topic_image = models.ImageField(upload_to = 'images/%Y/%m/%d/')
 
 class Articles(models.Model):
 	topic_name = models.ForeignKey(Topics, null = True, on_delete = models.CASCADE)
