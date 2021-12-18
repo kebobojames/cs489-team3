@@ -56,7 +56,7 @@ export default styled(Button)`
                                   supported by Chrome and Opera */
 
   &:hover {
-    background: green;
+    background: purple;
   }
 
   .circle {

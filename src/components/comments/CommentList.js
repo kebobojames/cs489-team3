@@ -16,7 +16,7 @@ function compare(a1, a2) {
   return false;
 }
 
-function gen_comments(comments, colorindex, path) {
+function gen_comments(comments, colorindex, path, getNews) {
   return comments.map((comment, i) => {
     return (
       <Comment
@@ -28,39 +28,45 @@ function gen_comments(comments, colorindex, path) {
         key={i}
         path={[...path, i]}
         comments={comment.comments}
+        getNews={getNews}
       />
     );
   });
 }
 
 function Reply(props) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(props.quote);
+
+  useEffect(() => {
+    setText(text + props.quote);
+  }, [props.quote])
+
   return (
     <div {...props}>
       <TextArea
         placeholder="What are your thoughts?"
         minRows={2}
-        defaultValue={text}
+        defaultValue={""}
+        value={text}
         onChange={value => {
           setText(value.target.value);
         }}
       />
       <div className="panel">
         <div className="comment_as">
-          Comment as{" "}
-          <a href="" className="username">
-            Kevin
-          </a>
+          Comment as{""}
+          <div className="username">
+            Team3IsTheBest
+          </div>
         </div>
-        <Button>COMMENT</Button>
+        <button class="ui purple button tiny">COMMENT</button>
       </div>
     </div>
   );
 }
 
 Reply = styled(Reply)`
-  border-radius: 8px;
-  border: solid 1px #3d4953;
+  border: solid 1px gray;
   overflow: hidden;
 
   &.hidden {
@@ -77,7 +83,7 @@ Reply = styled(Reply)`
 
     background: white;
     padding: 12px;
-    color: #cccccc;
+    color: black;
     border: none;
     max-width: 100%;
     min-width: 100%;
@@ -100,7 +106,7 @@ Reply = styled(Reply)`
       }
     }
 
-    ${Button} {
+    button {
       font-size: 14px;
       margin-left: auto;
     }
@@ -110,7 +116,6 @@ Reply = styled(Reply)`
 function Rating(props) {
   const [count, setCount] = useState(props.votes);
   const [thumbsUp, setThumbsUp] = useState(false);
-  const [thumbsDown, setThumbsDown] = useState(false);
 
   return (
     <div {...props}>
@@ -119,28 +124,16 @@ function Rating(props) {
         id="thumbs_up"
         onClick={() => {
           setThumbsUp(!thumbsUp);
-          setThumbsDown(false);
         }}
       >
         ^
       </button>
       <div
-        className={`count ${thumbsUp ? "up" : ""} ${thumbsDown ? "down" : ""}`}
+        className={`count ${thumbsUp ? "up" : ""}`}
       >
         {thumbsUp ? count + 1 : ""}
-        {thumbsDown ? count - 1 : ""}
-        {thumbsUp || thumbsDown ? "" : count}
+        {thumbsUp ? "" : count}
       </div>
-      <button
-        className={`material-icons ${thumbsDown ? "selected" : ""}`}
-        id="thumbs_down"
-        onClick={() => {
-          setThumbsDown(!thumbsDown);
-          setThumbsUp(false);
-        }}
-      >
-        .
-      </button>
     </div>
   );
 }
@@ -164,8 +157,7 @@ Rating = styled(Rating)`
     }
   }
 
-  button#thumbs_up,
-  button#thumbs_down {
+  button#thumbs_up {
     border: none;
     background: none;
     cursor: pointer;
@@ -175,6 +167,7 @@ Rating = styled(Rating)`
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
+    
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
@@ -182,10 +175,6 @@ Rating = styled(Rating)`
 
   #thumbs_up.selected {
     color: #4f9eed;
-  }
-
-  #thumbs_down.selected {
-    color: #ed4f4f;
   }
 `;
 
@@ -205,7 +194,7 @@ function Comment(props) {
     },
     [props.path]
   );
-
+  
   return (
     <div {...props}>
       {hidden ? (
@@ -233,13 +222,13 @@ function Comment(props) {
                 [{minimized ? "+" : "-"}]
               </span>
               <span id="username">
-                <a href="">{props.username}</a>
+                <div className="username">{props.username}</div>
               </span>
               <span id="date">
-                <a href="">{props.date}</a>
+                <div className="date">{props.date}</div>
               </span>
             </div>
-            <div id="content" className={minimized ? "hidden" : ""}>
+            <div id="content" className={minimized ? "hidden" : ""} onClick={() => props.getNews(true)}>
               <Markdown options={{ forceBlock: true }}>{props.text}</Markdown>
             </div>
             <div id="actions" className={minimized ? "hidden" : ""}>
@@ -278,9 +267,8 @@ Comment = styled(Comment)`
   display: flex;
   text-align: left;
   background: ${props => (props.colorindex % 2 === 0 ? "white" : "whitesmoke")};
-  padding: 10px 10px 10px 6px;
-  border: 0.1px solid #3d4953;
-  border-radius: 8px;
+  padding: 0.5vw 1vw 0.5vw 0.5vw;
+  border-left: 0.1px solid lightGray;
 
   #showMore {
     background: none;
@@ -297,10 +285,10 @@ Comment = styled(Comment)`
 
   .comments {
     > * {
-      margin-bottom: 10px;
+      margin-bottom: 0.6vw;
 
       &:last-child {
-        margin-bottom: 0px;
+        margin-bottom: 0vw;
       }
     }
 
@@ -335,7 +323,10 @@ Comment = styled(Comment)`
       }
 
       #username {
+        display: inline-block;
         color: #4f9eed;
+        margin-left: 0.5vw;
+        margin-right: 0.5vw;
       }
 
       #date {
@@ -344,7 +335,7 @@ Comment = styled(Comment)`
       }
 
       > * {
-        margin-right: 8px;
+        margin-right: 0vw;
       }
     }
 
@@ -353,12 +344,16 @@ Comment = styled(Comment)`
 
       &.hidden {
         display: none;
-      }
+      }    
+    }
+
+    #content:hover {
+      cursor: pointer;
     }
 
     #actions {
       color: #53626f;
-      margin-bottom: 12px;
+      margin-bottom: 0.4vw;
 
       -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -378,13 +373,13 @@ Comment = styled(Comment)`
 
       > * {
         cursor: pointer;
-        margin-right: 8px;
+        margin-right: 0.5vw;
       }
     }
   }
 
   ${Reply} {
-    margin-bottom: 12px;
+    margin-bottom: 0vw;
   }
 `;
 
@@ -392,45 +387,45 @@ function Comments(props) {
   var [replying, setReplying] = useState([]);
   var [comments, setComments] = useState([
     {
-      username: "Kevin",
+      username: "HoneyBear216",
       date: "3 hours ago",
-      text: "##Hello\n>quote\n\n`code`",
-      votes: 12,
+      text: "Abortion issue is tricky. <mark>We could be looking many more restrictions on how abortion clinics are regulated</mark>. This could potentially affect other vital services unrelated to abortion at Planned Parenthood. The law should be carefully examined.",
+      votes: 25,
       comments: [
         {
-          username: "Kevin",
+          username: "BadgerTech110",
           date: "2 hours ago",
-          text: "^ click the minimize button to hide threads",
+          text: "I agree. It's a <mark>complicated issue and requires more research into the process</mark>, but for now we must honor the precendence of Roe vs Wade until reasonable conclusion can be made.",
           votes: 8,
           comments: [
             {
-              username: "Kevin",
+              username: "LoveIdeas",
               date: "1 hours ago",
-              text: "<- Click the arrows to vote",
+              text: "However, you could argue that woman's autonomy comes first.",
               votes: 3,
               comments: []
             }
           ]
         },
         {
-          username: "Kevin",
-          date: "4 hours ago",
-          text: "click on reply to open up a text prompt",
+          username: "KevinC.",
+          date: "30 min ago",
+          text: "I really don't think abortion should be allowed at any stage, and our laws should reflect that.",
           votes: 5,
           comments: []
         },
         {
-          username: "Kevin",
-          date: "4 hours ago",
-          text: "click on reply to open up a text prompt",
-          votes: 5,
+          username: "IngloriousBees",
+          date: "2 hours ago",
+          text: "You are being so stupid rn what the heck honoring what you're a murderer",
+          votes: 1,
           comments: []
         },
         {
-          username: "Kevin",
-          date: "4 hours ago",
-          text: "click on reply to open up a text prompt",
-          votes: 5,
+          username: "AlphaMale",
+          date: "2 hours ago",
+          text: "LOL what a delusional argument babys don't have feelings just kill them all",
+          votes: 20,
           comments: []
         },
         {
@@ -480,9 +475,12 @@ function Comments(props) {
     <Card {...props}>
       <span id="comments">Comments</span>
       <span id="comments_count">(9)</span>
-      <Reply />
+      <button id="comment-exit-button">X</button>
+      <Reply 
+        quote={props.quote}
+      />
       <CommentContext.Provider value={[replying, setReplying]}>
-        {gen_comments(comments, 0, [])}
+        {gen_comments(comments, 0, [], props.getNews)}
       </CommentContext.Provider>
     </Card>
   );
@@ -490,11 +488,13 @@ function Comments(props) {
 
 export default styled(Comments)`
   width: 40vw;
+  height: fit-content;
   top: 7.0vw;
   background-color: white;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   > * {
-    margin-bottom: 16px;
+    margin-bottom: 1vw;
 
     &:last-child {
       margin-bottom: 0px;
@@ -506,9 +506,29 @@ export default styled(Comments)`
     font-weight: 900;
     font-size: 20px;
     display: inline-block;
-    margin-right: 4px;
-    margin-bottom: 8px;
+    margin-right: 0.4vw;
+    margin-bottom: 1vw;
   }
+
+  #comment-exit-button {
+    display: inline-block;
+    background-color: inherit;
+    border: none;
+    font-size: 1.5vw;
+    float: right;
+  }
+
+  #comment-exit-button:hover {
+    display: inline-block;
+    background-color: inherit;
+    border: none;
+    font-size: 1.5vw;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    float: right;
+
+}
 
   #comments {
     color: #000000;

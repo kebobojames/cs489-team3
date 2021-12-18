@@ -1,13 +1,14 @@
 .source {
     height: fit-content;
-    border-radius: 1vw;
     display: grid;
-    grid-template-columns: 12% 38% 38% 12%;
+    grid-template-columns: 10% 65% 15% 10%;
     grid-template-rows: 1.5vw fit-content 1vw;
     justify-content: center;
     padding: 1vw;
-    margin: 0.5vw;
     background-color: white;
+    border: solid;
+    border-width: 0vw 0vw 0.15vw 0vw;
+    border-color: whitesmoke;
 }
 
 .source:hover {
@@ -15,19 +16,18 @@
 }
 
 .score {
-    height: 3vw;
-    width: 3vw;
-    background-color: #c8c8c8;
+    height: 2.5vw;
+    width: 2.5vw;
+    text-align: center;
+    padding: 0.7vw;
     border-radius: 100vw;
-    padding: 1vw;
-    margin-left: 0.5vw;
-    grid-row: 1/4;
+    background-color: thistle;
+    grid-row: 1/3;
     grid-column: 1;
 }
 
 .news-site {
     padding-left: 1vw;
-    padding-right: 1vw;
     justify-content: left;
     text-align: left;
     grid-row: 1;
@@ -37,7 +37,7 @@
 
 .news-title {
     padding-left: 1vw;
-    padding-right: 1vw;
+    padding-right: 0.5vw;
     justify-content: left;
     text-align: left;
     grid-row: 2;
@@ -47,7 +47,6 @@
 .news-author {
     padding-left: 1vw;
     padding-right: 1vw;
-    justify-content: space-between;
     text-align: left;
     grid-row: 3;
     grid-column: 2;
@@ -58,11 +57,21 @@
     grid-row: 3;
     grid-column: 3;
     color: gray;
+    text-align: right;
 }
 
 .upvote {
-    justify-content: center;
+    justify-content: left;
     background-color: none;
-    grid-row: 2/3;
+    grid-row: 1/4;
     grid-column: 4;
+    padding-top: 1.5vw;
+}
+
+.upvoteButton {
+    border: none;
+}
+
+.upvoteButton:hover {
+    cursor: pointer;
 }

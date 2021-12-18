@@ -1,3 +1,8 @@
+.topicList {
+    display: block;
+}
+
+
 .App {
   display: block;
   min-height: 100vh;
@@ -5,7 +10,7 @@
   padding-bottom: 5vw;
   text-align: center;
   justify-content: center;
-  background-color: lightgray;
+  background-color: #f0f0f0;
 }
 
 .content {
