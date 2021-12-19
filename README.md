@@ -11,7 +11,8 @@ Our NLP models for topic modelling and polarization score calculations were trai
 The following link hosts our pretrained models and dataset, which are too large to be included in this repository: https://drive.google.com/drive/folders/1So8XyH1Kl6-56wF_RM3tzdYjAqKszcbM?usp=sharing
 
 ## Directory Structure
-* **Political bias classifier** contains files related to bias classification and polarization score computation, originally written in Google Colab
+* **Political bias classifier** contains files related to bias classification and polarization score computation, originally written in Google Colab.
+   * test 
 * **topic-modelling** contains files related to topic modelling, originally written in Google Colab. Modifications will be needed for the Jupyter notebooks to be run outside Colab. Please also make sure to adjust the directory paths referenced in the files below before running them on your local environment.
     * combine_with_bias.ipynb contains the code used to generate a tuple of political orientation, polarization score, and list of keywords from a given text
     * news_topic_modelling.ipynb contains the code used to train the BERTopic and visualize the resulting topic clusters
