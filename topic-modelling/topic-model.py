@@ -31,22 +31,24 @@ from bertopic import BERTopic
 
 tf.disable_v2_behavior()
 
+
+# Function to output polarization scores of news text
 def polarization_score(pred_list, cls):
   if cls == 0 or cls == 3:
     return int(50 + 50 * pred_list[cls] - 12.5 * (1 - pred_list[cls]))
   else:
     return int(50 * pred_list[cls] - 12.5 * (1 - pred_list[cls]))
 
+# Function to make bias and topic prediction
 def make_pred(news_text, news_DNN_four, bert_topic, session, scaler, e_All_four):
   sim_matrix = session.run(embedded_text, feed_dict={text_input: [news_text]})
   combine = np.vstack([e_All_four, sim_matrix])
   sca = scaler.fit_transform(combine)[-1]
   sca = np.array([sca])
-  # sca = sca.reshape(sca.shape[0], 1, sca.shape[1])
   pred = news_DNN_four.predict(sca)
   classes_y= np.argmax(pred,axis=1)
 
-  # topic modelling addition
+  # Topic modelling addition
   topic_num = bert_topic.transform(news_text)[0][0]
   keywords = bert_topic.get_topic(topic_num)
   keywords_lst = [entry[0] for entry in keywords]
@@ -63,11 +65,10 @@ def make_pred(news_text, news_DNN_four, bert_topic, session, scaler, e_All_four)
 if __name__ == "__main__":
     # Load text and dataset
     df = pd.read_csv("../datasets/articles3.csv")  # load dataset here
-    small_df = df[30:40]  # in case only a small portion of a large dataset is needed
-
+    small_df = df[30:40]  # optional, in case only a small portion of a large dataset is needed
     e_All_four = np.load("../models/e_All_four_0_2.npy")
 
-    # Load the encoder:
+    # Load the bias classification encoder:
     g = tf.Graph()
     with g.as_default():
         text_input = tf.placeholder(dtype=tf.string, shape=[None])
@@ -82,8 +83,9 @@ if __name__ == "__main__":
 
     scaler = StandardScaler()
 
-    bert_topic = BERTopic.load("../models/topic_model")  # loading the BERTopic for topic modelling
-    news_DNN_four = tf.keras.models.load_model("../models/news_DNN_four")  # loading the news DNN for bias classification
+    # Load the pretrained BERTopic for topic modelling and news DNN for bias classification
+    bert_topic = BERTopic.load("../models/topic_model")
+    news_DNN_four = tf.keras.models.load_model("../models/news_DNN_four")
 
     for i, row in small_df.iterrows():
         output = make_pred(row['content'], news_DNN_four, bert_topic, session, scaler, e_All_four)
