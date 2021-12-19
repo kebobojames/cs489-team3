@@ -15,7 +15,7 @@ The following link hosts our pretrained models and dataset, which are too large 
    * Bias_four_DNN.ipynb and Bias_four_LSTM.ipynb are the main codes for processing, training, and scoring the news text
    * model_loader_four.ipynb contain the code to load a model given a pretrained model
    * news_DNN_four and news_LSTM_four are the pretrained model
-However, some of the part of the code need the dataset and models from the google drive link above.
+* However, some of the part of the code need the dataset and models from the google drive link above.
 * **topic-modelling** contains files related to topic modelling, originally written in Google Colab. Modifications will be needed for the Jupyter notebooks to be run outside Colab. Please also make sure to adjust the directory paths referenced in the files below before running them on your local environment.
     * combine_with_bias.ipynb contains the code used to generate a tuple of political orientation, polarization score, and list of keywords from a given text
     * news_topic_modelling.ipynb contains the code used to train the BERTopic and visualize the resulting topic clusters
