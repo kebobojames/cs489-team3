@@ -22,6 +22,8 @@ The following link hosts our pretrained models and dataset, which are too large 
     * sample_topic_modelling.ipynb contains the code used to assign a text to the nearest topic cluster and extract its keywords using the pretrained BERTopic model.
     * topic-model.py contains a Python script you can run to output a prediction tuple (originally developed in combine_with_bias.ipynb) in terminal. This function covers both the bias classification and topic modelling aspects. Please make sure that all requirements are already met and the dataset and model paths in the script are modified before running the program. Please refer to the link above to find large files not included in this repository.
 
+* **public** and **src** contain files for the front end implementation.
+
 * **django_react** and **articles** contain files for the backend implementation.
 Run the following code to turn on the backend server:
 ```
@@ -29,6 +31,8 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
+
+
     
 ## Requirements
 Our implementation requires quite a lot of dependencies with a specific version range, so it is strongly recommendeded to use a virtual environment for development. The BERTopic model we use for topic modelling particularly contains plenty of functions that are sensitive to version updates. Most of the requirements will be installed with bertopic, which can be done using pypi with the following command:
