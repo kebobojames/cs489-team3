@@ -27,11 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,8 +43,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,9 +131,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = 'build/static'
+STATICFILES_DIRS = ['build/static']
 
 STATIC_ROOT = 'staticfiles'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
