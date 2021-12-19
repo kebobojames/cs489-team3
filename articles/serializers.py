@@ -18,7 +18,7 @@ class ArticlesSerializer(serializers.ModelSerializer):
 		fields = ('id', 'topic_name', 'article_title', 'article_text', 'polarization_score')
 
 	def process_article(self, article_text):
-		return NotImplementedError
+		return True
 		# raise serializers.ValidationError("Something went wrong while processing.")
 
 class CommentsSerializer(serializers.ModelSerializer):

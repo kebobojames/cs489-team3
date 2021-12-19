@@ -31,6 +31,7 @@ from bertopic import BERTopic
 
 tf.disable_v2_behavior()
 
+
 # Function to output polarization scores of news text
 def polarization_score(pred_list, cls):
   if cls == 0 or cls == 3:
@@ -65,7 +66,6 @@ if __name__ == "__main__":
     # Load text and dataset
     df = pd.read_csv("../datasets/articles3.csv")  # load dataset here
     small_df = df[30:40]  # optional, in case only a small portion of a large dataset is needed
-
     e_All_four = np.load("../models/e_All_four_0_2.npy")
 
     # Load the bias classification encoder:
