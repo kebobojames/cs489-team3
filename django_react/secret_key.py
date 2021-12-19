@@ -1,0 +1,1 @@
+secret_key = 'django-insecure-hkha!@@*(168a9pid+(-iajlzj-v=uknmq02(x(@vtk0zsju$)'
