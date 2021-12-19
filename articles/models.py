@@ -14,6 +14,9 @@ class Topics(models.Model):
 
 class Articles(models.Model):
 	topic_name = models.ForeignKey(Topics, null = True, on_delete = models.CASCADE)
+	news_site = models.CharField(max_length = 100)
+	author = models.CharField(max_length = 100)
+	date = models.DateField()
 	article_title = models.CharField(max_length = 100)
 	article_text = models.CharField(max_length = 10000)
 	polarization_score = models.FloatField(

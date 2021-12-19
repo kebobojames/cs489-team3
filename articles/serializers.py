@@ -15,7 +15,7 @@ class TopicsSerializer(serializers.ModelSerializer):
 class ArticlesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Articles
-		fields = ('id', 'topic_name', 'article_title', 'article_text', 'polarization_score')
+		fields = ('id', 'topic_name', 'news_site', 'author', 'date', 'article_title', 'article_text', 'polarization_score')
 
 	def process_article(self, article_text):
 		return True
